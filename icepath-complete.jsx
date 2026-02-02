@@ -1,5 +1,5 @@
-import { createRoot } from 'react-dom/client'
 import React, { useState, useMemo } from 'react';
+import { createRoot } from 'react-dom/client';
 
 const App = () => {
   const [currentView, setCurrentView] = useState('home');
@@ -48,11 +48,141 @@ const App = () => {
     AIN: { flag: '🏳️', name: 'Neutral Athlete', color: '666666', bgColor: '#666666' },
   };
 
-  // Generate avatar URL using UI Avatars API (reliable, allows hotlinking)
+  // Convert name to thumbnail filename (lowercase, underscores, ASCII only)
+  const nameToFilename = (name) => {
+    return name
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Remove accents
+      .replace(/-/g, '_') // Replace hyphens with underscores
+      .replace(/'/g, '') // Remove apostrophes
+      .replace(/\s+/g, '_') // Replace spaces with underscores
+      .replace(/[^a-z0-9_]/g, ''); // Remove any other non-ASCII
+  };
+
+  // Get thumbnail URL for a single person
+  const getThumbnailUrl = (name) => {
+    return `thumbnails/${nameToFilename(name)}.jpg`;
+  };
+
+  // Generate avatar URL as fallback
   const getAvatarUrl = (name, country, size = 128) => {
     const countryData = countries[country] || { color: '666666' };
     const encodedName = encodeURIComponent(name);
     return `https://ui-avatars.com/api/?name=${encodedName}&size=${size}&background=${countryData.color}&color=fff&bold=true&format=svg`;
+  };
+
+  // Check if athlete is pairs/ice dance (has "&" in name)
+  const isPairOrDance = (name) => name.includes(' & ');
+
+  // Split pair/dance names
+  const splitPairNames = (name) => {
+    const parts = name.split(' & ');
+    return parts.map(part => part.trim());
+  };
+
+  // Athlete Photo Component with fallback
+  const AthletePhoto = ({ athlete, size = 48, style = {} }) => {
+    const [imageErrors, setImageErrors] = useState({});
+
+    if (isPairOrDance(athlete.name)) {
+      const names = splitPairNames(athlete.name);
+      const halfSize = size / 2;
+      
+      return (
+        <div style={{ 
+          display: 'flex', 
+          width: size, 
+          height: size, 
+          borderRadius: size * 0.25, 
+          overflow: 'hidden',
+          flexShrink: 0,
+          ...style 
+        }}>
+          {names.map((name, i) => (
+            <img
+              key={i}
+              src={imageErrors[name] ? getAvatarUrl(name, athlete.country, size) : getThumbnailUrl(name)}
+              alt={name}
+              onError={() => setImageErrors(prev => ({ ...prev, [name]: true }))}
+              style={{ 
+                width: halfSize, 
+                height: size, 
+                objectFit: 'cover',
+                objectPosition: 'center top'
+              }}
+            />
+          ))}
+        </div>
+      );
+    }
+
+    // Single athlete
+    return (
+      <img
+        src={imageErrors[athlete.name] ? getAvatarUrl(athlete.name, athlete.country, size) : getThumbnailUrl(athlete.name)}
+        alt={athlete.name}
+        onError={() => setImageErrors(prev => ({ ...prev, [athlete.name]: true }))}
+        style={{ 
+          width: size, 
+          height: size, 
+          borderRadius: size * 0.25, 
+          objectFit: 'cover',
+          objectPosition: 'center top',
+          flexShrink: 0,
+          ...style 
+        }}
+      />
+    );
+  };
+
+  // Large Photo for detail page
+  const AthletePhotoLarge = ({ athlete, size = 80 }) => {
+    const [imageErrors, setImageErrors] = useState({});
+
+    if (isPairOrDance(athlete.name)) {
+      const names = splitPairNames(athlete.name);
+      
+      return (
+        <div style={{ 
+          display: 'flex', 
+          gap: '8px',
+          flexShrink: 0
+        }}>
+          {names.map((name, i) => (
+            <img
+              key={i}
+              src={imageErrors[name] ? getAvatarUrl(name, athlete.country, size) : getThumbnailUrl(name)}
+              alt={name}
+              onError={() => setImageErrors(prev => ({ ...prev, [name]: true }))}
+              style={{ 
+                width: size * 0.6, 
+                height: size, 
+                borderRadius: 16, 
+                objectFit: 'cover',
+                objectPosition: 'center top'
+              }}
+            />
+          ))}
+        </div>
+      );
+    }
+
+    return (
+      <img
+        src={imageErrors[athlete.name] ? getAvatarUrl(athlete.name, athlete.country, size) : getThumbnailUrl(athlete.name)}
+        alt={athlete.name}
+        onError={() => setImageErrors(prev => ({ ...prev, [athlete.name]: true }))}
+        style={{ 
+          width: size, 
+          height: size, 
+          borderRadius: 20, 
+          objectFit: 'cover',
+          objectPosition: 'center top',
+          flexShrink: 0
+        }}
+      />
+    );
   };
 
   // Element notation explanations
@@ -168,7 +298,7 @@ const App = () => {
       seasonBest: { sp: 68.45, fs: 128.90, total: 197.35, competition: '2026 U.S. Championships' },
       plannedElements: { sp: ['3Tw3', '3T', '3LoTh'], fs: ['3Tw3', '3S', '3T', '3FTh', '3LoTh'] },
       achievements: ['🇺🇸 2026 U.S. Pairs Champions'] },
-    { id: 'chen-howe', name: 'Emily Chan & Spencer Akira Howe', country: 'USA', event: 'pairs', eventName: 'Pairs',
+    { id: 'chan-howe', name: 'Emily Chan & Spencer Akira Howe', country: 'USA', event: 'pairs', eventName: 'Pairs',
       bio: 'Newer partnership showing strong international potential.',
       seasonBest: { sp: 65.23, fs: 124.56, total: 189.79, competition: '2026 U.S. Championships' },
       plannedElements: { sp: ['3Tw2', '3S', '3LoTh'], fs: ['3Tw3', '3T', '3S', '3FTh', '3LoTh'] } },
@@ -687,13 +817,9 @@ const App = () => {
                 textAlign: 'center'
               }}
             >
-              <img 
-                src={getAvatarUrl(athlete.name, athlete.country, 64)} 
-                alt={athlete.name}
-                style={{ width: '56px', height: '56px', borderRadius: '14px', objectFit: 'cover' }}
-              />
+              <AthletePhoto athlete={athlete} size={56} style={{ margin: '0 auto', borderRadius: '14px' }} />
               <div style={{ fontSize: '12px', fontWeight: '600', color: '#1e293b', marginTop: '8px', lineHeight: 1.2 }}>
-                {athlete.name.split(' ').slice(-1)[0]}
+                {athlete.name.includes(' & ') ? athlete.name.split(' & ')[0].split(' ').slice(-1)[0] : athlete.name.split(' ').slice(-1)[0]}
               </div>
               <div style={{ fontSize: '10px', color: '#64748b', marginTop: '2px' }}>
                 {countries[athlete.country]?.flag}
@@ -868,11 +994,7 @@ const App = () => {
                   boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
                 }}
               >
-                <img 
-                  src={getAvatarUrl(athlete.name, athlete.country, 48)} 
-                  alt={athlete.name}
-                  style={{ width: '48px', height: '48px', borderRadius: '12px', objectFit: 'cover', flexShrink: 0 }}
-                />
+                <AthletePhoto athlete={athlete} size={48} />
                 <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
                   <div style={{ fontSize: '15px', fontWeight: '600', color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{athlete.name}</div>
                   <div style={{ fontSize: '13px', color: '#64748b' }}>{countries[athlete.country]?.name}</div>
@@ -977,11 +1099,7 @@ const App = () => {
                   boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
                 }}
               >
-                <img 
-                  src={getAvatarUrl(athlete.name, athlete.country, 48)} 
-                  alt={athlete.name}
-                  style={{ width: '48px', height: '48px', borderRadius: '12px', objectFit: 'cover', flexShrink: 0 }}
-                />
+                <AthletePhoto athlete={athlete} size={48} />
                 <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
                   <div style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{athlete.name}</div>
                   <div style={{ fontSize: '12px', color: '#64748b' }}>
@@ -1025,11 +1143,7 @@ const App = () => {
           gap: '16px',
           flexWrap: 'wrap'
         }}>
-          <img 
-            src={getAvatarUrl(athlete.name, athlete.country, 128)} 
-            alt={athlete.name}
-            style={{ width: '80px', height: '80px', borderRadius: '20px', objectFit: 'cover', flexShrink: 0 }}
-          />
+          <AthletePhotoLarge athlete={athlete} size={80} />
           <div style={{ flex: 1, minWidth: '150px' }}>
             <h1 style={{ fontSize: '22px', fontWeight: '700', color: 'white', margin: '0 0 4px' }}>
               {athlete.name}
@@ -1228,11 +1342,7 @@ const App = () => {
                     boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
                   }}
                 >
-                  <img 
-                    src={getAvatarUrl(athlete.name, athlete.country, 48)} 
-                    alt={athlete.name}
-                    style={{ width: '48px', height: '48px', borderRadius: '12px', objectFit: 'cover', flexShrink: 0 }}
-                  />
+                  <AthletePhoto athlete={athlete} size={48} />
                   <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
                     <div style={{ fontSize: '15px', fontWeight: '600', color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{athlete.name}</div>
                     <div style={{ fontSize: '13px', color: '#64748b' }}>{countries[athlete.country]?.flag} {countries[athlete.country]?.name}</div>
