@@ -655,17 +655,17 @@ const App = () => {
     position: 'relative'
   };
 
-  // Header Component - clean and premium like native app
+  // Header Component - LARGE for native app feel
   const Header = ({ showBack, onBack, title }) => (
     <div style={{
       background: 'linear-gradient(135deg, #1e3a5f 0%, #2d4a6f 100%)',
-      padding: '20px 24px',
-      paddingTop: 'calc(env(safe-area-inset-top, 20px) + 20px)',
-      minHeight: '56px',
+      padding: '24px 24px 20px',
+      paddingTop: 'calc(env(safe-area-inset-top, 20px) + 24px)',
+      minHeight: '70px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: '16px',
+      gap: '20px',
       position: 'sticky',
       top: 0,
       zIndex: 50,
@@ -674,44 +674,44 @@ const App = () => {
     }}>
       {showBack && (
         <button onClick={onBack} style={{
-          background: 'rgba(255,255,255,0.1)',
+          background: 'rgba(255,255,255,0.15)',
           border: 'none',
           borderRadius: '50%',
-          width: '44px',
-          height: '44px',
-          minWidth: '44px',
-          minHeight: '44px',
+          width: '52px',
+          height: '52px',
+          minWidth: '52px',
+          minHeight: '52px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           cursor: 'pointer',
           color: 'white',
-          fontSize: '22px',
+          fontSize: '26px',
           position: 'absolute',
-          left: '16px'
+          left: '20px'
         }}>←</button>
       )}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
         <div style={{
-          width: '40px',
-          height: '40px',
+          width: '48px',
+          height: '48px',
           background: 'rgba(255,255,255,0.15)',
-          borderRadius: '12px',
+          borderRadius: '14px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: '22px',
+          fontSize: '26px',
           flexShrink: 0
         }}>⛸️</div>
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '20px', fontWeight: '600', color: 'white' }}>IcePath</div>
-          <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.7)', letterSpacing: '1.5px', textTransform: 'uppercase' }}>Milano 2026</div>
+          <div style={{ fontSize: '24px', fontWeight: '600', color: 'white' }}>IcePath</div>
+          <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', letterSpacing: '1.5px', textTransform: 'uppercase' }}>Milano 2026</div>
         </div>
       </div>
     </div>
   );
 
-  // Navigation Bar - clean native style
+  // Navigation Bar - VERY LARGE for native app feel
   const NavBar = () => (
     <nav style={{
       position: 'fixed',
@@ -720,19 +720,19 @@ const App = () => {
       right: 0,
       width: '100vw',
       background: 'white',
-      padding: '12px 0 8px',
-      paddingBottom: 'calc(env(safe-area-inset-bottom, 16px) + 8px)',
+      padding: '18px 0 14px',
+      paddingBottom: 'calc(env(safe-area-inset-bottom, 28px) + 14px)',
       display: 'flex',
       justifyContent: 'space-around',
-      borderTop: '1px solid #f0f0f0',
+      borderTop: '1px solid #e5e7eb',
       zIndex: 100,
       boxSizing: 'border-box'
     }}>
       {[
-        { id: 'home', icon: '🏠', activeIcon: '🏠', label: 'Home' },
-        { id: 'events', icon: '📅', activeIcon: '📅', label: 'Schedule' },
-        { id: 'athletes', icon: '⛸️', activeIcon: '⛸️', label: 'Athletes' },
-        { id: 'favorites', icon: '⭐', activeIcon: '⭐', label: 'Saved' }
+        { id: 'home', icon: '🏠', label: 'Home' },
+        { id: 'events', icon: '📅', label: 'Schedule' },
+        { id: 'athletes', icon: '⛸️', label: 'Athletes' },
+        { id: 'favorites', icon: '⭐', label: 'Saved' }
       ].map(item => (
         <button
           key={item.id}
@@ -740,20 +740,20 @@ const App = () => {
           style={{
             background: 'none',
             border: 'none',
-            padding: '8px 16px',
+            padding: '10px 20px',
             color: currentView === item.id ? '#3b82f6' : '#9ca3af',
-            fontSize: '11px',
+            fontSize: '14px',
             cursor: 'pointer',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '4px',
-            minWidth: '64px',
-            minHeight: '50px'
+            gap: '8px',
+            minWidth: '80px',
+            minHeight: '64px'
           }}
         >
-          <span style={{ fontSize: '24px', opacity: currentView === item.id ? 1 : 0.7 }}>{item.icon}</span>
-          <span style={{ fontWeight: currentView === item.id ? '600' : '500', letterSpacing: '0.3px' }}>{item.label}</span>
+          <span style={{ fontSize: '32px', opacity: currentView === item.id ? 1 : 0.7 }}>{item.icon}</span>
+          <span style={{ fontWeight: currentView === item.id ? '600' : '500' }}>{item.label}</span>
         </button>
       ))}
     </nav>
@@ -802,79 +802,79 @@ const App = () => {
     );
   };
 
-  // Home Screen - clean premium design matching mockup
+  // Home Screen - LARGE design matching mockup
   const HomeScreen = () => (
-    <div style={{ paddingBottom: '100px', background: 'white' }}>
+    <div style={{ paddingBottom: '120px', background: 'white' }}>
       <Header />
       
       {/* Hero Section with Featured Skater */}
       <div style={{
         background: 'linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%)',
-        padding: '24px',
+        padding: '28px',
         position: 'relative'
       }}>
         <div style={{
           background: 'white',
-          borderRadius: '24px',
-          padding: '20px',
+          borderRadius: '28px',
+          padding: '24px',
           boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
           position: 'relative',
           overflow: 'hidden'
         }}>
           <div style={{
             position: 'absolute',
-            top: '12px',
-            left: '12px',
+            top: '16px',
+            left: '16px',
             background: '#ef4444',
             color: 'white',
-            padding: '6px 12px',
-            borderRadius: '8px',
-            fontSize: '11px',
+            padding: '8px 14px',
+            borderRadius: '10px',
+            fontSize: '13px',
             fontWeight: '700',
             letterSpacing: '0.5px',
             zIndex: 2
           }}>
             🔴 LIVE NOW
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginTop: '12px' }}>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', marginTop: '24px' }}>
+              <div style={{ fontSize: '24px', fontWeight: '700', color: '#1e293b', marginTop: '28px' }}>
                 Men's Short Program
               </div>
-              <div style={{ fontSize: '14px', color: '#64748b', marginTop: '4px' }}>
+              <div style={{ fontSize: '16px', color: '#64748b', marginTop: '6px' }}>
                 Group 4 (Final)
               </div>
             </div>
             <div style={{
-              width: '120px',
-              height: '140px',
+              width: '140px',
+              height: '160px',
               background: 'linear-gradient(135deg, #dbeafe, #bfdbfe)',
-              borderRadius: '16px',
+              borderRadius: '20px',
               display: 'flex',
               alignItems: 'flex-end',
               justifyContent: 'center',
               overflow: 'hidden'
             }}>
-              <span style={{ fontSize: '80px', marginBottom: '-10px' }}>⛸️</span>
+              <span style={{ fontSize: '90px', marginBottom: '-12px' }}>⛸️</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Top Contenders - horizontal scroll with circular photos */}
-      <div style={{ padding: '28px 0 20px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 24px', marginBottom: '20px' }}>
-          <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Top Contenders</h2>
-          <button onClick={() => setCurrentView('athletes')} style={{ background: 'none', border: 'none', color: '#3b82f6', fontSize: '15px', fontWeight: '600', cursor: 'pointer' }}>
+      {/* Top Contenders - horizontal scroll with LARGE circular photos */}
+      <div style={{ padding: '36px 0 28px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 28px', marginBottom: '24px' }}>
+          <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Top Contenders</h2>
+          <button onClick={() => setCurrentView('athletes')} style={{ background: 'none', border: 'none', color: '#3b82f6', fontSize: '18px', fontWeight: '600', cursor: 'pointer' }}>
             View all →
           </button>
         </div>
         
         <div style={{ 
           display: 'flex', 
-          gap: '20px', 
+          gap: '24px', 
           overflowX: 'auto', 
-          padding: '0 24px 16px',
+          padding: '0 28px 20px',
           scrollbarWidth: 'none',
           msOverflowStyle: 'none'
         }}>
@@ -889,14 +889,14 @@ const App = () => {
                 cursor: 'pointer',
                 textAlign: 'center',
                 flexShrink: 0,
-                width: '80px'
+                width: '90px'
               }}
             >
-              <AthletePhoto athlete={athlete} size={72} style={{ margin: '0 auto' }} />
-              <div style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b', marginTop: '10px', lineHeight: 1.3 }}>
+              <AthletePhoto athlete={athlete} size={80} style={{ margin: '0 auto' }} />
+              <div style={{ fontSize: '15px', fontWeight: '600', color: '#1e293b', marginTop: '12px', lineHeight: 1.3 }}>
                 {athlete.name.includes(' & ') ? athlete.name.split(' & ')[0].split(' ').slice(-1)[0] : athlete.name.split(' ').slice(-1)[0]}
               </div>
-              <div style={{ fontSize: '16px', marginTop: '2px' }}>
+              <div style={{ fontSize: '20px', marginTop: '4px' }}>
                 {countries[athlete.country]?.flag}
               </div>
             </button>
@@ -904,10 +904,10 @@ const App = () => {
         </div>
       </div>
 
-      {/* Schedule - clean list style */}
-      <div style={{ padding: '0 24px' }}>
-        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', margin: '0 0 16px' }}>Schedule</h2>
-        <div style={{ background: 'white', borderRadius: '20px', overflow: 'hidden', border: '1px solid #f1f5f9' }}>
+      {/* Schedule - LARGE list style */}
+      <div style={{ padding: '0 28px' }}>
+        <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', margin: '0 0 20px' }}>Schedule</h2>
+        <div style={{ background: 'white', borderRadius: '24px', overflow: 'hidden', border: '1px solid #f1f5f9' }}>
           {events.map((event, i) => (
             <button
               key={event.id}
@@ -916,33 +916,33 @@ const App = () => {
                 background: 'white',
                 border: 'none',
                 borderBottom: i < events.length - 1 ? '1px solid #f1f5f9' : 'none',
-                padding: '18px 20px',
+                padding: '22px 24px',
                 width: '100%',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '16px',
-                minHeight: '72px'
+                gap: '20px',
+                minHeight: '90px'
               }}
             >
               <div style={{
-                width: '44px',
-                height: '44px',
+                width: '56px',
+                height: '56px',
                 background: `${event.color}15`,
-                borderRadius: '12px',
+                borderRadius: '16px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '22px',
+                fontSize: '28px',
                 flexShrink: 0
               }}>
                 {event.icon}
               </div>
               <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
-                <div style={{ fontSize: '16px', fontWeight: '600', color: '#1e293b' }}>{event.name}</div>
-                <div style={{ fontSize: '14px', color: '#64748b', marginTop: '2px' }}>{event.dates}</div>
+                <div style={{ fontSize: '19px', fontWeight: '600', color: '#1e293b' }}>{event.name}</div>
+                <div style={{ fontSize: '16px', color: '#64748b', marginTop: '4px' }}>{event.dates}</div>
               </div>
-              <div style={{ color: '#cbd5e1', fontSize: '20px' }}>›</div>
+              <div style={{ color: '#cbd5e1', fontSize: '24px' }}>›</div>
             </button>
           ))}
         </div>
@@ -950,13 +950,13 @@ const App = () => {
     </div>
   );
 
-  // Events Screen - clean design
+  // Events Screen - LARGE design
   const EventsScreen = () => (
-    <div style={{ paddingBottom: '100px', background: 'white', minHeight: '100vh' }}>
+    <div style={{ paddingBottom: '140px', background: 'white', minHeight: '100vh' }}>
       <Header />
-      <div style={{ padding: '24px 24px 0' }}>
-        <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', margin: '0 0 4px' }}>Schedule</h1>
-        <p style={{ fontSize: '14px', color: '#94a3b8', margin: '0 0 20px' }}>All times local (CET/UTC+1)</p>
+      <div style={{ padding: '28px 24px 0' }}>
+        <h1 style={{ fontSize: '36px', fontWeight: '700', color: '#1e293b', margin: '0 0 8px' }}>Schedule</h1>
+        <p style={{ fontSize: '17px', color: '#94a3b8', margin: '0 0 24px' }}>All times local (CET/UTC+1)</p>
       </div>
       
       <div style={{ padding: '0' }}>
@@ -967,83 +967,83 @@ const App = () => {
             style={{
               background: 'white',
               border: 'none',
-              borderBottom: '1px solid #f1f5f9',
-              padding: '18px 24px',
+              borderBottom: '1px solid #e5e7eb',
+              padding: '24px 24px',
               width: '100%',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '16px',
-              minHeight: '80px'
+              gap: '20px',
+              minHeight: '110px'
             }}
           >
             <div style={{
-              width: '48px',
-              height: '48px',
+              width: '64px',
+              height: '64px',
               background: `${event.color}15`,
-              borderRadius: '14px',
+              borderRadius: '18px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '24px',
+              fontSize: '32px',
               flexShrink: 0
             }}>
               {event.icon}
             </div>
             <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
-              <div style={{ fontSize: '16px', fontWeight: '600', color: '#1e293b' }}>{event.name}</div>
-              <div style={{ fontSize: '14px', color: '#64748b', marginTop: '2px' }}>{event.dates}</div>
+              <div style={{ fontSize: '22px', fontWeight: '600', color: '#1e293b' }}>{event.name}</div>
+              <div style={{ fontSize: '18px', color: '#64748b', marginTop: '6px' }}>{event.dates}</div>
             </div>
-            <div style={{ color: '#cbd5e1', fontSize: '20px' }}>›</div>
+            <div style={{ color: '#cbd5e1', fontSize: '28px' }}>›</div>
           </button>
         ))}
       </div>
     </div>
   );
 
-  // Event Detail Screen - clean design
+  // Event Detail Screen - LARGE design
   const EventDetailScreen = () => {
     if (!selectedEvent) return null;
     const eventAthletes = athletes.filter(a => a.event === selectedEvent.id);
     
     return (
-      <div style={{ paddingBottom: '100px', background: 'white', minHeight: '100vh' }}>
+      <div style={{ paddingBottom: '140px', background: 'white', minHeight: '100vh' }}>
         <Header showBack onBack={() => { setSelectedEvent(null); setCurrentView('events'); }} />
         
         {/* Hero */}
         <div style={{
           background: `linear-gradient(135deg, ${selectedEvent.color}, ${selectedEvent.color}dd)`,
-          padding: '32px 24px',
+          padding: '40px 28px',
           color: 'white'
         }}>
-          <div style={{ fontSize: '48px', marginBottom: '12px' }}>{selectedEvent.icon}</div>
-          <h1 style={{ fontSize: '28px', fontWeight: '700', margin: '0 0 4px' }}>{selectedEvent.name}</h1>
-          <p style={{ fontSize: '16px', opacity: 0.9, margin: 0 }}>{selectedEvent.dates}</p>
+          <div style={{ fontSize: '60px', marginBottom: '16px' }}>{selectedEvent.icon}</div>
+          <h1 style={{ fontSize: '34px', fontWeight: '700', margin: '0 0 8px' }}>{selectedEvent.name}</h1>
+          <p style={{ fontSize: '20px', opacity: 0.9, margin: 0 }}>{selectedEvent.dates}</p>
         </div>
 
         {/* Schedule */}
-        <div style={{ padding: '24px 24px 0' }}>
-          <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: '0 0 16px' }}>Schedule</h2>
+        <div style={{ padding: '28px 24px 0' }}>
+          <h2 style={{ fontSize: '26px', fontWeight: '700', color: '#1e293b', margin: '0 0 20px' }}>Schedule</h2>
         </div>
-        <div style={{ marginBottom: '24px' }}>
+        <div style={{ marginBottom: '28px' }}>
           {selectedEvent.segments.map((seg, i) => (
             <div key={i} style={{
-              padding: '16px 24px',
-              borderBottom: '1px solid #f1f5f9',
+              padding: '22px 24px',
+              borderBottom: '1px solid #e5e7eb',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
               background: seg.isMedal ? '#fffbeb' : 'white',
-              minHeight: '64px'
+              minHeight: '80px'
             }}>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: '15px', fontWeight: '500', color: '#1e293b', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  {seg.isMedal && <span>🏅</span>}
+                <div style={{ fontSize: '19px', fontWeight: '500', color: '#1e293b', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  {seg.isMedal && <span style={{ fontSize: '22px' }}>🏅</span>}
                   {seg.name}
                 </div>
-                <div style={{ fontSize: '13px', color: '#64748b', marginTop: '2px' }}>{seg.date}</div>
+                <div style={{ fontSize: '16px', color: '#64748b', marginTop: '4px' }}>{seg.date}</div>
               </div>
-              <div style={{ fontSize: '15px', fontWeight: '600', color: seg.isMedal ? '#d97706' : '#3b82f6' }}>
+              <div style={{ fontSize: '19px', fontWeight: '600', color: seg.isMedal ? '#d97706' : '#3b82f6' }}>
                 {seg.time}
               </div>
             </div>
@@ -1051,8 +1051,8 @@ const App = () => {
         </div>
 
         {/* Athletes */}
-        <div style={{ padding: '0 24px 16px' }}>
-          <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: '0 0 16px' }}>
+        <div style={{ padding: '0 24px 20px' }}>
+          <h2 style={{ fontSize: '26px', fontWeight: '700', color: '#1e293b', margin: '0 0 20px' }}>
             Athletes ({eventAthletes.length})
           </h2>
         </div>
@@ -1064,33 +1064,36 @@ const App = () => {
               style={{
                 background: 'white',
                 border: 'none',
-                borderBottom: '1px solid #f1f5f9',
-                padding: '16px 24px',
+                borderBottom: '1px solid #e5e7eb',
+                padding: '24px 24px',
                 width: '100%',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '16px',
-                minHeight: '76px'
+                gap: '20px',
+                minHeight: '120px'
               }}
             >
-              <AthletePhoto athlete={athlete} size={52} />
+              <AthletePhoto athlete={athlete} size={70} />
               <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
-                <div style={{ fontSize: '16px', fontWeight: '600', color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{athlete.name}</div>
-                <div style={{ fontSize: '14px', color: '#64748b', marginTop: '2px' }}>{countries[athlete.country]?.flag} {countries[athlete.country]?.name}</div>
+                <div style={{ fontSize: '22px', fontWeight: '600', color: '#1e293b', marginBottom: '8px' }}>{athlete.name}</div>
+                <div style={{ fontSize: '18px', color: '#64748b', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ fontSize: '22px' }}>{countries[athlete.country]?.flag}</span>
+                  <span>{countries[athlete.country]?.name}</span>
+                </div>
               </div>
               {athlete.topContender && (
-                <div style={{ background: '#fef3c7', color: '#d97706', padding: '4px 10px', borderRadius: '6px', fontSize: '11px', fontWeight: '700', flexShrink: 0 }}>TOP</div>
+                <div style={{ background: '#dcfce7', color: '#16a34a', padding: '10px 16px', borderRadius: '10px', fontSize: '15px', fontWeight: '700', flexShrink: 0 }}>TOP</div>
               )}
-              <div style={{ color: '#cbd5e1', fontSize: '20px' }}>›</div>
+              <div style={{ color: '#cbd5e1', fontSize: '28px' }}>›</div>
             </button>
           ))}
         </div>
         {eventAthletes.length > 10 && (
-          <div style={{ padding: '16px 24px' }}>
+          <div style={{ padding: '20px 24px' }}>
             <button
               onClick={() => setCurrentView('athletes')}
-              style={{ background: '#f1f5f9', border: 'none', borderRadius: '12px', padding: '16px', width: '100%', cursor: 'pointer', color: '#3b82f6', fontWeight: '600', fontSize: '15px' }}
+              style={{ background: '#f1f5f9', border: 'none', borderRadius: '16px', padding: '22px', width: '100%', cursor: 'pointer', color: '#3b82f6', fontWeight: '600', fontSize: '18px' }}
             >
               View all {eventAthletes.length} athletes
             </button>
@@ -1100,7 +1103,7 @@ const App = () => {
     );
   };
 
-  // Athletes Screen - clean design matching mockup
+  // Athletes Screen - DRAMATICALLY LARGE
   const AthletesScreen = () => {
     const [filter, setFilter] = useState('all');
     const filtered = useMemo(() => {
@@ -1110,69 +1113,46 @@ const App = () => {
     }, [filter, searchQuery, filteredAthletes]);
 
     return (
-      <div style={{ paddingBottom: '100px', background: 'white', minHeight: '100vh' }}>
-        <Header />
-        
-        {/* Page Title */}
-        <div style={{ padding: '24px 24px 0' }}>
-          <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', margin: '0 0 16px' }}>
-            Skaters <span style={{ fontSize: '16px', fontWeight: '400', color: '#94a3b8' }}>({filtered.length})</span>
-          </h1>
+      <div style={{ paddingBottom: '140px', background: 'white', minHeight: '100vh' }}>
+        {/* Extended Header with Search */}
+        <div style={{
+          background: 'linear-gradient(135deg, #1e3a5f 0%, #2d4a6f 100%)',
+          padding: '0',
+          paddingTop: 'env(safe-area-inset-top, 0px)',
+        }}>
+          <Header />
           
-          {/* Search Bar */}
-          <div style={{ position: 'relative', marginBottom: '16px' }}>
-            <span style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', fontSize: '18px', color: '#94a3b8' }}>🔍</span>
-            <input
-              type="text"
-              placeholder="Search athletes..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '16px 16px 16px 48px',
-                borderRadius: '16px',
-                border: 'none',
-                background: '#f1f5f9',
-                fontSize: '16px',
-                boxSizing: 'border-box',
-                outline: 'none'
-              }}
-            />
-          </div>
-          
-          {/* Filter Pills */}
-          <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px', marginBottom: '8px' }}>
-            {[
-              { id: 'all', label: 'All' },
-              { id: 'mens', label: "Men" },
-              { id: 'womens', label: "Women" },
-              { id: 'pairs', label: 'Pairs' },
-              { id: 'ice-dance', label: 'Ice Dance' }
-            ].map(f => (
-              <button
-                key={f.id}
-                onClick={() => setFilter(f.id)}
+          {/* Title and Search inside header area */}
+          <div style={{ padding: '8px 24px 28px', background: 'linear-gradient(180deg, rgba(30,58,95,0) 0%, rgba(30,58,95,0.95) 100%)' }}>
+            <h1 style={{ fontSize: '38px', fontWeight: '700', color: 'white', margin: '0 0 20px' }}>
+              Skaters
+            </h1>
+            
+            {/* Search Bar - VERY LARGE */}
+            <div style={{ position: 'relative' }}>
+              <span style={{ position: 'absolute', left: '22px', top: '50%', transform: 'translateY(-50%)', fontSize: '24px', color: '#64748b' }}>🔍</span>
+              <input
+                type="text"
+                placeholder="Search athletes..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
-                  background: filter === f.id ? '#3b82f6' : '#f1f5f9',
-                  color: filter === f.id ? 'white' : '#64748b',
+                  width: '100%',
+                  padding: '22px 24px 22px 60px',
+                  borderRadius: '18px',
                   border: 'none',
-                  borderRadius: '20px',
-                  padding: '10px 18px',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  whiteSpace: 'nowrap',
-                  flexShrink: 0
+                  background: 'white',
+                  fontSize: '20px',
+                  boxSizing: 'border-box',
+                  outline: 'none'
                 }}
-              >
-                {f.label}
-              </button>
-            ))}
+              />
+            </div>
           </div>
         </div>
 
-        {/* Athletes List - clean rows */}
-        <div style={{ padding: '0' }}>
+        {/* Athletes List - VERY LARGE rows */}
+        <div style={{ padding: '16px 0 0' }}>
           {filtered.map((athlete, i) => (
             <button
               key={athlete.id}
@@ -1180,33 +1160,39 @@ const App = () => {
               style={{
                 background: 'white',
                 border: 'none',
-                borderBottom: '1px solid #f1f5f9',
-                padding: '16px 24px',
+                borderBottom: '1px solid #e5e7eb',
+                padding: '24px 24px',
                 width: '100%',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '16px',
-                minHeight: '76px'
+                gap: '20px',
+                minHeight: '120px'
               }}
             >
-              <AthletePhoto athlete={athlete} size={52} />
+              <AthletePhoto athlete={athlete} size={70} />
               <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
-                <div style={{ fontSize: '16px', fontWeight: '600', color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{athlete.name}</div>
-                <div style={{ fontSize: '14px', color: '#64748b', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span>{countries[athlete.country]?.flag}</span>
+                <div style={{ fontSize: '22px', fontWeight: '600', color: '#1e293b', marginBottom: '8px' }}>{athlete.name}</div>
+                <div style={{ fontSize: '18px', color: '#64748b', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ fontSize: '22px' }}>{countries[athlete.country]?.flag}</span>
                   <span>{countries[athlete.country]?.name}</span>
                 </div>
               </div>
               {athlete.topContender && (
-                <div style={{ background: '#fef3c7', color: '#d97706', padding: '4px 10px', borderRadius: '6px', fontSize: '11px', fontWeight: '700', flexShrink: 0 }}>TOP</div>
+                <div style={{ background: '#dcfce7', color: '#16a34a', padding: '10px 16px', borderRadius: '10px', fontSize: '15px', fontWeight: '700', flexShrink: 0 }}>TOP</div>
               )}
               <button
                 onClick={(e) => { e.stopPropagation(); toggleFavorite(athlete.id); }}
-                style={{ background: 'none', border: 'none', fontSize: '22px', cursor: 'pointer', padding: '8px', flexShrink: 0, color: favorites.includes(athlete.id) ? '#fbbf24' : '#d1d5db' }}
+                style={{ background: 'none', border: 'none', fontSize: '32px', cursor: 'pointer', padding: '12px', flexShrink: 0, color: favorites.includes(athlete.id) ? '#fbbf24' : '#d1d5db' }}
               >
                 {favorites.includes(athlete.id) ? '★' : '☆'}
               </button>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
             </button>
           ))}
         </div>
@@ -1388,23 +1374,23 @@ const App = () => {
     );
   };
 
-  // Favorites Screen - clean design
+  // Favorites Screen - LARGE design
   const FavoritesScreen = () => {
     const favoriteAthletes = athletes.filter(a => favorites.includes(a.id));
 
     return (
-      <div style={{ paddingBottom: '100px', background: 'white', minHeight: '100vh' }}>
+      <div style={{ paddingBottom: '140px', background: 'white', minHeight: '100vh' }}>
         <Header />
-        <div style={{ padding: '24px 24px 0' }}>
-          <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', margin: '0 0 20px' }}>
-            Saved <span style={{ fontSize: '16px', fontWeight: '400', color: '#94a3b8' }}>({favoriteAthletes.length})</span>
+        <div style={{ padding: '28px 24px 0' }}>
+          <h1 style={{ fontSize: '36px', fontWeight: '700', color: '#1e293b', margin: '0 0 24px' }}>
+            Saved <span style={{ fontSize: '22px', fontWeight: '400', color: '#94a3b8' }}>({favoriteAthletes.length})</span>
           </h1>
 
           {favoriteAthletes.length === 0 ? (
-            <div style={{ background: '#f8fafc', borderRadius: '20px', padding: '60px 32px', textAlign: 'center', marginTop: '40px' }}>
-              <div style={{ fontSize: '56px', marginBottom: '20px' }}>⭐</div>
-              <div style={{ fontSize: '20px', fontWeight: '600', color: '#1e293b', marginBottom: '8px' }}>No saved athletes yet</div>
-              <div style={{ fontSize: '15px', color: '#64748b' }}>Tap the star on any athlete to add them here</div>
+            <div style={{ background: '#f8fafc', borderRadius: '24px', padding: '80px 32px', textAlign: 'center', marginTop: '40px' }}>
+              <div style={{ fontSize: '72px', marginBottom: '24px' }}>⭐</div>
+              <div style={{ fontSize: '24px', fontWeight: '600', color: '#1e293b', marginBottom: '12px' }}>No saved athletes yet</div>
+              <div style={{ fontSize: '18px', color: '#64748b' }}>Tap the star on any athlete to add them here</div>
             </div>
           ) : (
             <div style={{ margin: '0 -24px' }}>
@@ -1415,22 +1401,25 @@ const App = () => {
                   style={{
                     background: 'white',
                     border: 'none',
-                    borderBottom: '1px solid #f1f5f9',
-                    padding: '16px 24px',
+                    borderBottom: '1px solid #e5e7eb',
+                    padding: '24px 24px',
                     width: '100%',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '16px',
-                    minHeight: '76px'
+                    gap: '20px',
+                    minHeight: '120px'
                   }}
                 >
-                  <AthletePhoto athlete={athlete} size={52} />
+                  <AthletePhoto athlete={athlete} size={70} />
                   <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
-                    <div style={{ fontSize: '16px', fontWeight: '600', color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{athlete.name}</div>
-                    <div style={{ fontSize: '14px', color: '#64748b', marginTop: '2px' }}>{countries[athlete.country]?.flag} {countries[athlete.country]?.name}</div>
+                    <div style={{ fontSize: '22px', fontWeight: '600', color: '#1e293b', marginBottom: '8px' }}>{athlete.name}</div>
+                    <div style={{ fontSize: '18px', color: '#64748b', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <span style={{ fontSize: '22px' }}>{countries[athlete.country]?.flag}</span>
+                      <span>{countries[athlete.country]?.name}</span>
+                    </div>
                   </div>
-                  <span style={{ fontSize: '24px', color: '#fbbf24' }}>★</span>
+                  <span style={{ fontSize: '32px', color: '#fbbf24' }}>★</span>
                 </button>
               ))}
             </div>
