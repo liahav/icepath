@@ -1193,12 +1193,6 @@ const App = () => {
       </div>
     );
   };
-            </button>
-          ))}
-        </div>
-      </div>
-    );
-  };
 
   // Athlete Detail Screen - clean design
   const AthleteDetailScreen = () => {
