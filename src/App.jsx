@@ -105,7 +105,7 @@ const App = () => {
     return parts.map(part => part.trim());
   };
 
-  // Athlete Photo Component with fallback
+  // Athlete Photo Component with fallback - CIRCULAR like native apps
   const AthletePhoto = ({ athlete, size = 48, style = {} }) => {
     const [imageErrors, setImageErrors] = useState({});
 
@@ -118,9 +118,10 @@ const App = () => {
           display: 'flex', 
           width: size, 
           height: size, 
-          borderRadius: size * 0.25, 
+          borderRadius: '50%', 
           overflow: 'hidden',
           flexShrink: 0,
+          border: '3px solid #e2e8f0',
           ...style 
         }}>
           {names.map((name, i) => (
@@ -141,7 +142,7 @@ const App = () => {
       );
     }
 
-    // Single athlete
+    // Single athlete - circular
     return (
       <img
         src={imageErrors[athlete.name] ? getAvatarUrl(athlete.name, athlete.country, size) : getThumbnailUrl(athlete.name)}
@@ -150,10 +151,11 @@ const App = () => {
         style={{ 
           width: size, 
           height: size, 
-          borderRadius: size * 0.25, 
+          borderRadius: '50%', 
           objectFit: 'cover',
           objectPosition: 'center top',
           flexShrink: 0,
+          border: '3px solid #e2e8f0',
           ...style 
         }}
       />
@@ -180,11 +182,12 @@ const App = () => {
               alt={name}
               onError={() => setImageErrors(prev => ({ ...prev, [name]: true }))}
               style={{ 
-                width: size * 0.6, 
-                height: size, 
-                borderRadius: 16, 
+                width: size * 0.5, 
+                height: size * 0.5, 
+                borderRadius: '50%', 
                 objectFit: 'cover',
-                objectPosition: 'center top'
+                objectPosition: 'center top',
+                border: '3px solid rgba(255,255,255,0.3)'
               }}
             />
           ))}
@@ -200,10 +203,11 @@ const App = () => {
         style={{ 
           width: size, 
           height: size, 
-          borderRadius: 20, 
+          borderRadius: '50%', 
           objectFit: 'cover',
           objectPosition: 'center top',
-          flexShrink: 0
+          flexShrink: 0,
+          border: '3px solid rgba(255,255,255,0.3)'
         }}
       />
     );
@@ -651,15 +655,16 @@ const App = () => {
     position: 'relative'
   };
 
-  // Header Component - taller for native mobile feel
+  // Header Component - clean and premium like native app
   const Header = ({ showBack, onBack, title }) => (
     <div style={{
-      background: 'linear-gradient(135deg, #0c1929 0%, #1a365d 100%)',
-      padding: '24px 20px',
-      paddingTop: 'calc(env(safe-area-inset-top, 24px) + 24px)',
-      minHeight: '80px',
+      background: 'linear-gradient(135deg, #1e3a5f 0%, #2d4a6f 100%)',
+      padding: '20px 24px',
+      paddingTop: 'calc(env(safe-area-inset-top, 20px) + 20px)',
+      minHeight: '56px',
       display: 'flex',
       alignItems: 'center',
+      justifyContent: 'center',
       gap: '16px',
       position: 'sticky',
       top: 0,
@@ -669,43 +674,44 @@ const App = () => {
     }}>
       {showBack && (
         <button onClick={onBack} style={{
-          background: 'rgba(255,255,255,0.15)',
+          background: 'rgba(255,255,255,0.1)',
           border: 'none',
           borderRadius: '50%',
-          width: '52px',
-          height: '52px',
-          minWidth: '52px',
-          minHeight: '52px',
+          width: '44px',
+          height: '44px',
+          minWidth: '44px',
+          minHeight: '44px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           cursor: 'pointer',
           color: 'white',
-          fontSize: '28px'
+          fontSize: '22px',
+          position: 'absolute',
+          left: '16px'
         }}>←</button>
       )}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <div style={{
-          width: '52px',
-          height: '52px',
-          background: 'linear-gradient(135deg, #60a5fa, #3b82f6)',
-          borderRadius: '14px',
+          width: '40px',
+          height: '40px',
+          background: 'rgba(255,255,255,0.15)',
+          borderRadius: '12px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: '28px',
+          fontSize: '22px',
           flexShrink: 0
         }}>⛸️</div>
-        <div>
-          <div style={{ fontSize: '26px', fontWeight: '700', color: 'white', letterSpacing: '0.5px' }}>IcePath</div>
-          <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', letterSpacing: '1px' }}>MILANO 2026</div>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '20px', fontWeight: '600', color: 'white' }}>IcePath</div>
+          <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.7)', letterSpacing: '1.5px', textTransform: 'uppercase' }}>Milano 2026</div>
         </div>
       </div>
-      {title && <div style={{ fontSize: '20px', color: 'rgba(255,255,255,0.9)' }}>{title}</div>}
     </div>
   );
 
-  // Navigation Bar - full width, larger for native app feel
+  // Navigation Bar - clean native style
   const NavBar = () => (
     <nav style={{
       position: 'fixed',
@@ -714,20 +720,19 @@ const App = () => {
       right: 0,
       width: '100vw',
       background: 'white',
-      padding: '16px 0',
-      paddingBottom: 'calc(env(safe-area-inset-bottom, 20px) + 16px)',
+      padding: '12px 0 8px',
+      paddingBottom: 'calc(env(safe-area-inset-bottom, 16px) + 8px)',
       display: 'flex',
       justifyContent: 'space-around',
-      borderTop: '1px solid #e5e7eb',
+      borderTop: '1px solid #f0f0f0',
       zIndex: 100,
-      boxShadow: '0 -4px 20px rgba(0,0,0,0.08)',
       boxSizing: 'border-box'
     }}>
       {[
-        { id: 'home', icon: '🏠', label: 'Home' },
-        { id: 'events', icon: '📅', label: 'Schedule' },
-        { id: 'athletes', icon: '⛸️', label: 'Athletes' },
-        { id: 'favorites', icon: '⭐', label: 'Saved' }
+        { id: 'home', icon: '🏠', activeIcon: '🏠', label: 'Home' },
+        { id: 'events', icon: '📅', activeIcon: '📅', label: 'Schedule' },
+        { id: 'athletes', icon: '⛸️', activeIcon: '⛸️', label: 'Athletes' },
+        { id: 'favorites', icon: '⭐', activeIcon: '⭐', label: 'Saved' }
       ].map(item => (
         <button
           key={item.id}
@@ -735,20 +740,20 @@ const App = () => {
           style={{
             background: 'none',
             border: 'none',
-            padding: '12px 20px',
-            color: currentView === item.id ? '#3b82f6' : '#6b7280',
-            fontSize: '15px',
+            padding: '8px 16px',
+            color: currentView === item.id ? '#3b82f6' : '#9ca3af',
+            fontSize: '11px',
             cursor: 'pointer',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '6px',
-            minWidth: '70px',
-            minHeight: '56px'
+            gap: '4px',
+            minWidth: '64px',
+            minHeight: '50px'
           }}
         >
-          <span style={{ fontSize: '32px' }}>{item.icon}</span>
-          <span style={{ fontWeight: currentView === item.id ? '700' : '500' }}>{item.label}</span>
+          <span style={{ fontSize: '24px', opacity: currentView === item.id ? 1 : 0.7 }}>{item.icon}</span>
+          <span style={{ fontWeight: currentView === item.id ? '600' : '500', letterSpacing: '0.3px' }}>{item.label}</span>
         </button>
       ))}
     </nav>
@@ -797,272 +802,305 @@ const App = () => {
     );
   };
 
-  // Home Screen
+  // Home Screen - clean premium design matching mockup
   const HomeScreen = () => (
-    <div style={{ paddingBottom: '160px' }}>
+    <div style={{ paddingBottom: '100px', background: 'white' }}>
       <Header />
       
+      {/* Hero Section with Featured Skater */}
       <div style={{
-        background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)',
-        padding: '32px 24px',
-        color: 'white'
+        background: 'linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%)',
+        padding: '24px',
+        position: 'relative'
       }}>
-        <div style={{ fontSize: '15px', fontWeight: '500', opacity: 0.85, marginBottom: '8px' }}>
-          OLYMPIC WINTER GAMES
-        </div>
-        <div style={{ fontSize: '36px', fontWeight: '800', marginBottom: '8px' }}>
-          Figure Skating
-        </div>
-        <div style={{ fontSize: '17px', opacity: 0.9 }}>
-          February 6-19, 2026 • Milano Ice Skating Arena
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginTop: '24px' }}>
-          {[
-            { val: '5', label: 'Events' },
-            { val: '142', label: 'Athletes' },
-            { val: '35', label: 'Nations' }
-          ].map(s => (
-            <div key={s.label} style={{
-              background: 'rgba(255,255,255,0.2)',
-              borderRadius: '16px',
-              padding: '20px 12px',
-              textAlign: 'center'
-            }}>
-              <div style={{ fontSize: '28px', fontWeight: '700' }}>{s.val}</div>
-              <div style={{ fontSize: '14px', opacity: 0.85 }}>{s.label}</div>
+        <div style={{
+          background: 'white',
+          borderRadius: '24px',
+          padding: '20px',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          <div style={{
+            position: 'absolute',
+            top: '12px',
+            left: '12px',
+            background: '#ef4444',
+            color: 'white',
+            padding: '6px 12px',
+            borderRadius: '8px',
+            fontSize: '11px',
+            fontWeight: '700',
+            letterSpacing: '0.5px',
+            zIndex: 2
+          }}>
+            🔴 LIVE NOW
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '8px' }}>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', marginTop: '24px' }}>
+                Men's Short Program
+              </div>
+              <div style={{ fontSize: '14px', color: '#64748b', marginTop: '4px' }}>
+                Group 4 (Final)
+              </div>
             </div>
-          ))}
+            <div style={{
+              width: '120px',
+              height: '140px',
+              background: 'linear-gradient(135deg, #dbeafe, #bfdbfe)',
+              borderRadius: '16px',
+              display: 'flex',
+              alignItems: 'flex-end',
+              justifyContent: 'center',
+              overflow: 'hidden'
+            }}>
+              <span style={{ fontSize: '80px', marginBottom: '-10px' }}>⛸️</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div style={{ padding: '28px 24px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-          <h2 style={{ fontSize: '26px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Top Contenders</h2>
-          <button onClick={() => setCurrentView('athletes')} style={{ background: 'none', border: 'none', color: '#3b82f6', fontSize: '17px', fontWeight: '600', cursor: 'pointer' }}>
+      {/* Top Contenders - horizontal scroll with circular photos */}
+      <div style={{ padding: '28px 0 20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 24px', marginBottom: '20px' }}>
+          <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', margin: 0 }}>Top Contenders</h2>
+          <button onClick={() => setCurrentView('athletes')} style={{ background: 'none', border: 'none', color: '#3b82f6', fontSize: '15px', fontWeight: '600', cursor: 'pointer' }}>
             View all →
           </button>
         </div>
         
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(115px, 1fr))', gap: '16px' }}>
+        <div style={{ 
+          display: 'flex', 
+          gap: '20px', 
+          overflowX: 'auto', 
+          padding: '0 24px 16px',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none'
+        }}>
           {athletes.filter(a => a.topContender).slice(0, 8).map(athlete => (
+            <button
+              key={athlete.id}
+              onClick={() => { setSelectedAthlete(athlete); setCurrentView('athlete-detail'); }}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                padding: '0',
+                cursor: 'pointer',
+                textAlign: 'center',
+                flexShrink: 0,
+                width: '80px'
+              }}
+            >
+              <AthletePhoto athlete={athlete} size={72} style={{ margin: '0 auto' }} />
+              <div style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b', marginTop: '10px', lineHeight: 1.3 }}>
+                {athlete.name.includes(' & ') ? athlete.name.split(' & ')[0].split(' ').slice(-1)[0] : athlete.name.split(' ').slice(-1)[0]}
+              </div>
+              <div style={{ fontSize: '16px', marginTop: '2px' }}>
+                {countries[athlete.country]?.flag}
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Schedule - clean list style */}
+      <div style={{ padding: '0 24px' }}>
+        <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', margin: '0 0 16px' }}>Schedule</h2>
+        <div style={{ background: 'white', borderRadius: '20px', overflow: 'hidden', border: '1px solid #f1f5f9' }}>
+          {events.map((event, i) => (
+            <button
+              key={event.id}
+              onClick={() => { setSelectedEvent(event); setCurrentView('event-detail'); }}
+              style={{
+                background: 'white',
+                border: 'none',
+                borderBottom: i < events.length - 1 ? '1px solid #f1f5f9' : 'none',
+                padding: '18px 20px',
+                width: '100%',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px',
+                minHeight: '72px'
+              }}
+            >
+              <div style={{
+                width: '44px',
+                height: '44px',
+                background: `${event.color}15`,
+                borderRadius: '12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '22px',
+                flexShrink: 0
+              }}>
+                {event.icon}
+              </div>
+              <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
+                <div style={{ fontSize: '16px', fontWeight: '600', color: '#1e293b' }}>{event.name}</div>
+                <div style={{ fontSize: '14px', color: '#64748b', marginTop: '2px' }}>{event.dates}</div>
+              </div>
+              <div style={{ color: '#cbd5e1', fontSize: '20px' }}>›</div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  // Events Screen - clean design
+  const EventsScreen = () => (
+    <div style={{ paddingBottom: '100px', background: 'white', minHeight: '100vh' }}>
+      <Header />
+      <div style={{ padding: '24px 24px 0' }}>
+        <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', margin: '0 0 4px' }}>Schedule</h1>
+        <p style={{ fontSize: '14px', color: '#94a3b8', margin: '0 0 20px' }}>All times local (CET/UTC+1)</p>
+      </div>
+      
+      <div style={{ padding: '0' }}>
+        {events.map((event, i) => (
+          <button
+            key={event.id}
+            onClick={() => { setSelectedEvent(event); setCurrentView('event-detail'); }}
+            style={{
+              background: 'white',
+              border: 'none',
+              borderBottom: '1px solid #f1f5f9',
+              padding: '18px 24px',
+              width: '100%',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px',
+              minHeight: '80px'
+            }}
+          >
+            <div style={{
+              width: '48px',
+              height: '48px',
+              background: `${event.color}15`,
+              borderRadius: '14px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '24px',
+              flexShrink: 0
+            }}>
+              {event.icon}
+            </div>
+            <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
+              <div style={{ fontSize: '16px', fontWeight: '600', color: '#1e293b' }}>{event.name}</div>
+              <div style={{ fontSize: '14px', color: '#64748b', marginTop: '2px' }}>{event.dates}</div>
+            </div>
+            <div style={{ color: '#cbd5e1', fontSize: '20px' }}>›</div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
+  // Event Detail Screen - clean design
+  const EventDetailScreen = () => {
+    if (!selectedEvent) return null;
+    const eventAthletes = athletes.filter(a => a.event === selectedEvent.id);
+    
+    return (
+      <div style={{ paddingBottom: '100px', background: 'white', minHeight: '100vh' }}>
+        <Header showBack onBack={() => { setSelectedEvent(null); setCurrentView('events'); }} />
+        
+        {/* Hero */}
+        <div style={{
+          background: `linear-gradient(135deg, ${selectedEvent.color}, ${selectedEvent.color}dd)`,
+          padding: '32px 24px',
+          color: 'white'
+        }}>
+          <div style={{ fontSize: '48px', marginBottom: '12px' }}>{selectedEvent.icon}</div>
+          <h1 style={{ fontSize: '28px', fontWeight: '700', margin: '0 0 4px' }}>{selectedEvent.name}</h1>
+          <p style={{ fontSize: '16px', opacity: 0.9, margin: 0 }}>{selectedEvent.dates}</p>
+        </div>
+
+        {/* Schedule */}
+        <div style={{ padding: '24px 24px 0' }}>
+          <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: '0 0 16px' }}>Schedule</h2>
+        </div>
+        <div style={{ marginBottom: '24px' }}>
+          {selectedEvent.segments.map((seg, i) => (
+            <div key={i} style={{
+              padding: '16px 24px',
+              borderBottom: '1px solid #f1f5f9',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              background: seg.isMedal ? '#fffbeb' : 'white',
+              minHeight: '64px'
+            }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: '15px', fontWeight: '500', color: '#1e293b', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  {seg.isMedal && <span>🏅</span>}
+                  {seg.name}
+                </div>
+                <div style={{ fontSize: '13px', color: '#64748b', marginTop: '2px' }}>{seg.date}</div>
+              </div>
+              <div style={{ fontSize: '15px', fontWeight: '600', color: seg.isMedal ? '#d97706' : '#3b82f6' }}>
+                {seg.time}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Athletes */}
+        <div style={{ padding: '0 24px 16px' }}>
+          <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1e293b', margin: '0 0 16px' }}>
+            Athletes ({eventAthletes.length})
+          </h2>
+        </div>
+        <div>
+          {eventAthletes.slice(0, 10).map(athlete => (
             <button
               key={athlete.id}
               onClick={() => { setSelectedAthlete(athlete); setCurrentView('athlete-detail'); }}
               style={{
                 background: 'white',
                 border: 'none',
-                borderRadius: '20px',
-                padding: '18px 12px',
+                borderBottom: '1px solid #f1f5f9',
+                padding: '16px 24px',
+                width: '100%',
                 cursor: 'pointer',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                textAlign: 'center'
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px',
+                minHeight: '76px'
               }}
             >
-              <AthletePhoto athlete={athlete} size={76} style={{ margin: '0 auto', borderRadius: '18px' }} />
-              <div style={{ fontSize: '15px', fontWeight: '600', color: '#1e293b', marginTop: '12px', lineHeight: 1.3 }}>
-                {athlete.name.includes(' & ') ? athlete.name.split(' & ')[0].split(' ').slice(-1)[0] : athlete.name.split(' ').slice(-1)[0]}
+              <AthletePhoto athlete={athlete} size={52} />
+              <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
+                <div style={{ fontSize: '16px', fontWeight: '600', color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{athlete.name}</div>
+                <div style={{ fontSize: '14px', color: '#64748b', marginTop: '2px' }}>{countries[athlete.country]?.flag} {countries[athlete.country]?.name}</div>
               </div>
-              <div style={{ fontSize: '14px', color: '#64748b', marginTop: '4px' }}>
-                {countries[athlete.country]?.flag}
-              </div>
+              {athlete.topContender && (
+                <div style={{ background: '#fef3c7', color: '#d97706', padding: '4px 10px', borderRadius: '6px', fontSize: '11px', fontWeight: '700', flexShrink: 0 }}>TOP</div>
+              )}
+              <div style={{ color: '#cbd5e1', fontSize: '20px' }}>›</div>
             </button>
           ))}
         </div>
-
-        <h2 style={{ fontSize: '26px', fontWeight: '700', color: '#1e293b', margin: '32px 0 20px' }}>Schedule</h2>
-        {events.map(event => (
-          <button
-            key={event.id}
-            onClick={() => { setSelectedEvent(event); setCurrentView('event-detail'); }}
-            style={{
-              background: 'white',
-              border: 'none',
-              borderRadius: '20px',
-              padding: '22px',
-              marginBottom: '14px',
-              width: '100%',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '18px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
-            }}
-          >
-            <div style={{
-              width: '64px',
-              height: '64px',
-              background: `linear-gradient(135deg, ${event.color}22, ${event.color}11)`,
-              borderRadius: '16px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '32px',
-              flexShrink: 0
-            }}>
-              {event.icon}
-            </div>
-            <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
-              <div style={{ fontSize: '19px', fontWeight: '600', color: '#1e293b' }}>{event.name}</div>
-              <div style={{ fontSize: '16px', color: '#64748b', marginTop: '4px' }}>{event.dates}</div>
-            </div>
-            <div style={{ color: '#9ca3af', fontSize: '26px' }}>›</div>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-
-  // Events Screen
-  const EventsScreen = () => (
-    <div style={{ paddingBottom: '160px' }}>
-      <Header />
-      <div style={{ padding: '28px 24px' }}>
-        <h1 style={{ fontSize: '32px', fontWeight: '700', color: '#1e293b', margin: '0 0 8px' }}>Schedule</h1>
-        <p style={{ fontSize: '17px', color: '#64748b', margin: '0 0 28px' }}>All times local (CET/UTC+1)</p>
-        
-        {events.map(event => (
-          <button
-            key={event.id}
-            onClick={() => { setSelectedEvent(event); setCurrentView('event-detail'); }}
-            style={{
-              background: 'white',
-              border: 'none',
-              borderRadius: '20px',
-              padding: '24px',
-              marginBottom: '16px',
-              width: '100%',
-              cursor: 'pointer',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-              textAlign: 'left'
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-              <div style={{
-                width: '68px',
-                height: '68px',
-                background: `linear-gradient(135deg, ${event.color}, ${event.color}cc)`,
-                borderRadius: '18px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '34px',
-                flexShrink: 0
-              }}>
-                {event.icon}
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: '20px', fontWeight: '600', color: '#1e293b', marginBottom: '6px' }}>{event.name}</div>
-                <div style={{ fontSize: '16px', color: '#64748b', marginBottom: '4px' }}>{event.dates}</div>
-                <div style={{ fontSize: '15px', color: '#94a3b8' }}>{event.description}</div>
-              </div>
-              <div style={{ color: '#9ca3af', fontSize: '26px' }}>›</div>
-            </div>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-
-  // Event Detail Screen
-  const EventDetailScreen = () => {
-    if (!selectedEvent) return null;
-    const eventAthletes = athletes.filter(a => a.event === selectedEvent.id);
-    
-    return (
-      <div style={{ paddingBottom: '160px' }}>
-        <Header showBack onBack={() => { setSelectedEvent(null); setCurrentView('events'); }} />
-        
-        <div style={{
-          background: `linear-gradient(135deg, ${selectedEvent.color}, ${selectedEvent.color}cc)`,
-          padding: '28px 24px',
-          color: 'white'
-        }}>
-          <div style={{ fontSize: '54px', marginBottom: '16px' }}>{selectedEvent.icon}</div>
-          <h1 style={{ fontSize: '36px', fontWeight: '800', margin: '0 0 8px' }}>{selectedEvent.name}</h1>
-          <p style={{ fontSize: '19px', opacity: 0.9, margin: 0 }}>{selectedEvent.dates}</p>
-        </div>
-
-        <div style={{ padding: '28px' }}>
-          <h2 style={{ fontSize: '26px', fontWeight: '700', color: '#1e293b', margin: '0 0 20px' }}>Schedule</h2>
-          <div style={{
-            background: 'white',
-            borderRadius: '20px',
-            overflow: 'hidden',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-            marginBottom: '32px'
-          }}>
-            {selectedEvent.segments.map((seg, i) => (
-              <div key={i} style={{
-                padding: '20px 24px',
-                borderBottom: i < selectedEvent.segments.length - 1 ? '1px solid #f1f5f9' : 'none',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                background: seg.isMedal ? 'linear-gradient(90deg, #fef3c7, #fffbeb)' : 'white',
-                minHeight: '70px'
-              }}>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: '18px', fontWeight: '500', color: '#1e293b', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    {seg.isMedal && <span>🏅</span>}
-                    {seg.name}
-                  </div>
-                  <div style={{ fontSize: '16px', color: '#64748b', marginTop: '4px' }}>{seg.date}</div>
-                </div>
-                <div style={{ fontSize: '18px', fontWeight: '600', color: seg.isMedal ? '#d97706' : '#3b82f6' }}>
-                  {seg.time}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <h2 style={{ fontSize: '26px', fontWeight: '700', color: '#1e293b', margin: '0 0 20px' }}>
-            Athletes ({eventAthletes.length})
-          </h2>
-          <div style={{ display: 'grid', gap: '14px' }}>
-            {eventAthletes.slice(0, 10).map(athlete => (
-              <button
-                key={athlete.id}
-                onClick={() => { setSelectedAthlete(athlete); setCurrentView('athlete-detail'); }}
-                style={{
-                  background: 'white',
-                  border: 'none',
-                  borderRadius: '20px',
-                  padding: '20px',
-                  width: '100%',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '18px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-                  minHeight: '90px'
-                }}
-              >
-                <AthletePhoto athlete={athlete} size={72} />
-                <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
-                  <div style={{ fontSize: '19px', fontWeight: '600', color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{athlete.name}</div>
-                  <div style={{ fontSize: '16px', color: '#64748b', marginTop: '4px' }}>{countries[athlete.country]?.name}</div>
-                </div>
-                {athlete.topContender && (
-                  <div style={{ background: '#fef3c7', color: '#d97706', padding: '6px 12px', borderRadius: '8px', fontSize: '13px', fontWeight: '600', flexShrink: 0 }}>TOP</div>
-                )}
-                <div style={{ color: '#9ca3af', fontSize: '26px' }}>›</div>
-              </button>
-            ))}
-          </div>
-          {eventAthletes.length > 10 && (
+        {eventAthletes.length > 10 && (
+          <div style={{ padding: '16px 24px' }}>
             <button
               onClick={() => setCurrentView('athletes')}
-              style={{ background: '#f1f5f9', border: 'none', borderRadius: '16px', padding: '20px', width: '100%', cursor: 'pointer', color: '#3b82f6', fontWeight: '600', fontSize: '17px', marginTop: '14px' }}
+              style={{ background: '#f1f5f9', border: 'none', borderRadius: '12px', padding: '16px', width: '100%', cursor: 'pointer', color: '#3b82f6', fontWeight: '600', fontSize: '15px' }}
             >
               View all {eventAthletes.length} athletes
             </button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     );
   };
 
-  // Athletes Screen
+  // Athletes Screen - clean design matching mockup
   const AthletesScreen = () => {
     const [filter, setFilter] = useState('all');
     const filtered = useMemo(() => {
@@ -1072,30 +1110,38 @@ const App = () => {
     }, [filter, searchQuery, filteredAthletes]);
 
     return (
-      <div style={{ paddingBottom: '160px' }}>
+      <div style={{ paddingBottom: '100px', background: 'white', minHeight: '100vh' }}>
         <Header />
-        <div style={{ padding: '24px' }}>
-          <h1 style={{ fontSize: '32px', fontWeight: '700', color: '#1e293b', margin: '0 0 20px' }}>
-            Athletes <span style={{ fontSize: '20px', fontWeight: '400', color: '#64748b' }}>({filtered.length})</span>
+        
+        {/* Page Title */}
+        <div style={{ padding: '24px 24px 0' }}>
+          <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', margin: '0 0 16px' }}>
+            Skaters <span style={{ fontSize: '16px', fontWeight: '400', color: '#94a3b8' }}>({filtered.length})</span>
           </h1>
           
-          <input
-            type="text"
-            placeholder="Search athletes or countries..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '18px 22px',
-              borderRadius: '16px',
-              border: '1px solid #e2e8f0',
-              fontSize: '18px',
-              marginBottom: '20px',
-              boxSizing: 'border-box'
-            }}
-          />
+          {/* Search Bar */}
+          <div style={{ position: 'relative', marginBottom: '16px' }}>
+            <span style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', fontSize: '18px', color: '#94a3b8' }}>🔍</span>
+            <input
+              type="text"
+              placeholder="Search athletes..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '16px 16px 16px 48px',
+                borderRadius: '16px',
+                border: 'none',
+                background: '#f1f5f9',
+                fontSize: '16px',
+                boxSizing: 'border-box',
+                outline: 'none'
+              }}
+            />
+          </div>
           
-          <div style={{ display: 'flex', gap: '12px', overflowX: 'auto', marginBottom: '24px', paddingBottom: '4px' }}>
+          {/* Filter Pills */}
+          <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px', marginBottom: '8px' }}>
             {[
               { id: 'all', label: 'All' },
               { id: 'mens', label: "Men" },
@@ -1107,68 +1153,68 @@ const App = () => {
                 key={f.id}
                 onClick={() => setFilter(f.id)}
                 style={{
-                  background: filter === f.id ? '#3b82f6' : 'white',
+                  background: filter === f.id ? '#3b82f6' : '#f1f5f9',
                   color: filter === f.id ? 'white' : '#64748b',
-                  border: filter === f.id ? 'none' : '1px solid #e2e8f0',
-                  borderRadius: '28px',
-                  padding: '14px 24px',
-                  fontSize: '16px',
+                  border: 'none',
+                  borderRadius: '20px',
+                  padding: '10px 18px',
+                  fontSize: '14px',
                   fontWeight: '600',
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
-                  flexShrink: 0,
-                  minHeight: '48px'
+                  flexShrink: 0
                 }}
               >
                 {f.label}
               </button>
             ))}
           </div>
+        </div>
 
-          <div style={{ display: 'grid', gap: '14px' }}>
-            {filtered.map(athlete => (
-              <button
-                key={athlete.id}
-                onClick={() => { setSelectedAthlete(athlete); setCurrentView('athlete-detail'); }}
-                style={{
-                  background: 'white',
-                  border: 'none',
-                  borderRadius: '20px',
-                  padding: '20px',
-                  width: '100%',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '18px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-                  minHeight: '90px'
-                }}
-              >
-                <AthletePhoto athlete={athlete} size={72} />
-                <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
-                  <div style={{ fontSize: '19px', fontWeight: '600', color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{athlete.name}</div>
-                  <div style={{ fontSize: '16px', color: '#64748b', marginTop: '4px' }}>
-                    {countries[athlete.country]?.flag} {countries[athlete.country]?.name}
-                  </div>
+        {/* Athletes List - clean rows */}
+        <div style={{ padding: '0' }}>
+          {filtered.map((athlete, i) => (
+            <button
+              key={athlete.id}
+              onClick={() => { setSelectedAthlete(athlete); setCurrentView('athlete-detail'); }}
+              style={{
+                background: 'white',
+                border: 'none',
+                borderBottom: '1px solid #f1f5f9',
+                padding: '16px 24px',
+                width: '100%',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px',
+                minHeight: '76px'
+              }}
+            >
+              <AthletePhoto athlete={athlete} size={52} />
+              <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
+                <div style={{ fontSize: '16px', fontWeight: '600', color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{athlete.name}</div>
+                <div style={{ fontSize: '14px', color: '#64748b', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span>{countries[athlete.country]?.flag}</span>
+                  <span>{countries[athlete.country]?.name}</span>
                 </div>
-                {athlete.topContender && (
-                  <div style={{ background: 'linear-gradient(135deg, #fbbf24, #f59e0b)', color: 'white', padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: '700', flexShrink: 0 }}>TOP</div>
-                )}
-                <button
-                  onClick={(e) => { e.stopPropagation(); toggleFavorite(athlete.id); }}
-                  style={{ background: 'none', border: 'none', fontSize: '28px', cursor: 'pointer', padding: '10px', flexShrink: 0 }}
-                >
-                  {favorites.includes(athlete.id) ? '⭐' : '☆'}
-                </button>
+              </div>
+              {athlete.topContender && (
+                <div style={{ background: '#fef3c7', color: '#d97706', padding: '4px 10px', borderRadius: '6px', fontSize: '11px', fontWeight: '700', flexShrink: 0 }}>TOP</div>
+              )}
+              <button
+                onClick={(e) => { e.stopPropagation(); toggleFavorite(athlete.id); }}
+                style={{ background: 'none', border: 'none', fontSize: '22px', cursor: 'pointer', padding: '8px', flexShrink: 0, color: favorites.includes(athlete.id) ? '#fbbf24' : '#d1d5db' }}
+              >
+                {favorites.includes(athlete.id) ? '★' : '☆'}
               </button>
-            ))}
-          </div>
+            </button>
+          ))}
         </div>
       </div>
     );
   };
 
-  // Athlete Detail Screen
+  // Athlete Detail Screen - clean design
   const AthleteDetailScreen = () => {
     if (!selectedAthlete) return null;
     const athlete = selectedAthlete;
@@ -1176,74 +1222,66 @@ const App = () => {
     const isIceDance = athlete.event === 'ice-dance';
 
     return (
-      <div style={{ paddingBottom: '160px' }}>
+      <div style={{ paddingBottom: '100px', background: 'white', minHeight: '100vh' }}>
         <Header showBack onBack={() => { setSelectedAthlete(null); setCurrentView('athletes'); }} />
         
         {/* Hero */}
         <div style={{
-          background: `linear-gradient(135deg, ${countryData.bgColor}dd, ${countryData.bgColor}88)`,
-          padding: '40px 28px',
+          background: `linear-gradient(135deg, ${countryData.bgColor}ee, ${countryData.bgColor}aa)`,
+          padding: '32px 24px',
           display: 'flex',
           alignItems: 'center',
-          gap: '24px',
-          flexWrap: 'wrap'
+          gap: '20px'
         }}>
-          <AthletePhotoLarge athlete={athlete} size={100} />
-          <div style={{ flex: 1, minWidth: '150px' }}>
-            <h1 style={{ fontSize: '28px', fontWeight: '700', color: 'white', margin: '0 0 8px' }}>
+          <AthletePhotoLarge athlete={athlete} size={88} />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <h1 style={{ fontSize: '22px', fontWeight: '700', color: 'white', margin: '0 0 6px', lineHeight: 1.2 }}>
               {athlete.name}
             </h1>
-            <div style={{ fontSize: '18px', color: 'rgba(255,255,255,0.9)' }}>
+            <div style={{ fontSize: '15px', color: 'rgba(255,255,255,0.9)' }}>
               {countryData.flag} {countryData.name}
             </div>
             {athlete.nickname && (
-              <div style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)', fontStyle: 'italic', marginTop: '8px' }}>
+              <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.75)', fontStyle: 'italic', marginTop: '6px' }}>
                 "{athlete.nickname}"
               </div>
             )}
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-            <button
-              onClick={() => toggleFavorite(athlete.id)}
-              style={{ background: 'rgba(255,255,255,0.2)', border: 'none', borderRadius: '50%', width: '58px', height: '58px', fontSize: '30px', cursor: 'pointer' }}
-            >
-              {favorites.includes(athlete.id) ? '⭐' : '☆'}
-            </button>
-            {athlete.topContender && (
-              <div style={{ background: 'linear-gradient(135deg, #fbbf24, #f59e0b)', color: 'white', padding: '10px 14px', borderRadius: '12px', fontSize: '12px', fontWeight: '700', textAlign: 'center' }}>
-                ⭐ TOP<br/>CONTENDER
-              </div>
-            )}
-          </div>
+          <button
+            onClick={() => toggleFavorite(athlete.id)}
+            style={{ background: 'rgba(255,255,255,0.2)', border: 'none', borderRadius: '50%', width: '48px', height: '48px', fontSize: '24px', cursor: 'pointer', flexShrink: 0 }}
+          >
+            {favorites.includes(athlete.id) ? '★' : '☆'}
+          </button>
         </div>
 
-        <div style={{ padding: '28px' }}>
+        <div style={{ padding: '24px' }}>
           {/* Season Best Scores */}
           {athlete.seasonBest && (
-            <div style={{ background: 'white', borderRadius: '24px', padding: '28px', marginBottom: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-              <div style={{ fontSize: '15px', fontWeight: '600', color: '#64748b', letterSpacing: '0.5px', marginBottom: '16px' }}>
+            <div style={{ background: '#f8fafc', borderRadius: '16px', padding: '20px', marginBottom: '16px' }}>
+              <div style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', letterSpacing: '0.5px', marginBottom: '12px' }}>
                 SEASON BEST SCORES
               </div>
-              <div style={{ fontSize: '52px', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>
+              <div style={{ fontSize: '40px', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>
                 {athlete.seasonBest.total.toFixed(2)}
               </div>
-              <div style={{ fontSize: '15px', color: '#64748b', marginTop: '8px', marginBottom: '20px' }}>
+              <div style={{ fontSize: '13px', color: '#64748b', marginTop: '4px', marginBottom: '16px' }}>
                 {athlete.seasonBest.competition}
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                <div style={{ background: '#f1f5f9', borderRadius: '16px', padding: '18px', textAlign: 'center' }}>
-                  <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '8px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div style={{ background: 'white', borderRadius: '12px', padding: '14px', textAlign: 'center' }}>
+                  <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px' }}>
                     {isIceDance ? 'RHYTHM DANCE' : 'SHORT PROGRAM'}
                   </div>
-                  <div style={{ fontSize: '26px', fontWeight: '700', color: '#3b82f6' }}>
+                  <div style={{ fontSize: '22px', fontWeight: '700', color: '#3b82f6' }}>
                     {(athlete.seasonBest.sp || athlete.seasonBest.rd || 0).toFixed(2)}
                   </div>
                 </div>
-                <div style={{ background: '#f1f5f9', borderRadius: '16px', padding: '18px', textAlign: 'center' }}>
-                  <div style={{ fontSize: '14px', color: '#64748b', marginBottom: '8px' }}>
+                <div style={{ background: 'white', borderRadius: '12px', padding: '14px', textAlign: 'center' }}>
+                  <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px' }}>
                     {isIceDance ? 'FREE DANCE' : 'FREE SKATE'}
                   </div>
-                  <div style={{ fontSize: '26px', fontWeight: '700', color: '#8b5cf6' }}>
+                  <div style={{ fontSize: '22px', fontWeight: '700', color: '#8b5cf6' }}>
                     {(athlete.seasonBest.fs || athlete.seasonBest.fd || 0).toFixed(2)}
                   </div>
                 </div>
@@ -1253,19 +1291,19 @@ const App = () => {
 
           {/* Planned Technical Elements - NOT for ice dance */}
           {athlete.plannedElements && !isIceDance && (
-            <div style={{ background: 'white', borderRadius: '24px', padding: '28px', marginBottom: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-              <div style={{ fontSize: '15px', fontWeight: '600', color: '#64748b', letterSpacing: '0.5px', marginBottom: '16px' }}>
+            <div style={{ background: '#f8fafc', borderRadius: '16px', padding: '20px', marginBottom: '16px' }}>
+              <div style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', letterSpacing: '0.5px', marginBottom: '12px' }}>
                 PLANNED TECHNICAL HIGHLIGHTS
               </div>
               {athlete.plannedElements.sp && (
-                <div style={{ marginBottom: '14px' }}>
-                  <div style={{ fontSize: '13px', color: '#64748b', marginBottom: '8px' }}>Short Program</div>
-                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                <div style={{ marginBottom: '12px' }}>
+                  <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '6px' }}>Short Program</div>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                     {athlete.plannedElements.sp.map((el, i) => (
                       <button
                         key={i}
                         onClick={() => setShowElementInfo(el.replace(/\+.*/g, ''))}
-                        style={{ background: '#dbeafe', color: '#1e40af', border: 'none', borderRadius: '8px', padding: '8px 12px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}
+                        style={{ background: '#dbeafe', color: '#1e40af', border: 'none', borderRadius: '6px', padding: '6px 10px', fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}
                       >
                         {el} ⓘ
                       </button>
@@ -1275,13 +1313,13 @@ const App = () => {
               )}
               {athlete.plannedElements.fs && (
                 <div>
-                  <div style={{ fontSize: '13px', color: '#64748b', marginBottom: '8px' }}>Free Skate</div>
-                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                  <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '6px' }}>Free Skate</div>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                     {athlete.plannedElements.fs.slice(0, 5).map((el, i) => (
                       <button
                         key={i}
                         onClick={() => setShowElementInfo(el.replace(/\+.*/g, ''))}
-                        style={{ background: '#e0e7ff', color: '#3730a3', border: 'none', borderRadius: '8px', padding: '8px 12px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}
+                        style={{ background: '#e0e7ff', color: '#3730a3', border: 'none', borderRadius: '6px', padding: '6px 10px', fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}
                       >
                         {el} ⓘ
                       </button>
@@ -1297,12 +1335,12 @@ const App = () => {
 
           {/* Achievements */}
           {athlete.achievements && (
-            <div style={{ background: 'white', borderRadius: '20px', padding: '24px', marginBottom: '18px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-              <div style={{ fontSize: '14px', fontWeight: '600', color: '#64748b', letterSpacing: '0.5px', marginBottom: '14px' }}>
+            <div style={{ background: '#f8fafc', borderRadius: '16px', padding: '20px', marginBottom: '16px' }}>
+              <div style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', letterSpacing: '0.5px', marginBottom: '12px' }}>
                 ACHIEVEMENTS
               </div>
               {athlete.achievements.map((ach, i) => (
-                <div key={i} style={{ padding: '12px 0', borderBottom: i < athlete.achievements.length - 1 ? '1px solid #f1f5f9' : 'none', fontSize: '16px', color: '#374151' }}>
+                <div key={i} style={{ padding: '10px 0', borderBottom: i < athlete.achievements.length - 1 ? '1px solid #e2e8f0' : 'none', fontSize: '14px', color: '#374151' }}>
                   {ach}
                 </div>
               ))}
@@ -1311,34 +1349,34 @@ const App = () => {
 
           {/* Programs */}
           {athlete.programs && (
-            <div style={{ background: 'white', borderRadius: '20px', padding: '24px', marginBottom: '18px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-              <div style={{ fontSize: '14px', fontWeight: '600', color: '#64748b', letterSpacing: '0.5px', marginBottom: '14px' }}>
+            <div style={{ background: '#f8fafc', borderRadius: '16px', padding: '20px', marginBottom: '16px' }}>
+              <div style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', letterSpacing: '0.5px', marginBottom: '12px' }}>
                 PROGRAMS
               </div>
-              <div style={{ background: 'linear-gradient(135deg, #ede9fe, #f5f3ff)', borderRadius: '14px', padding: '18px', marginBottom: '12px' }}>
-                <div style={{ fontSize: '12px', fontWeight: '600', color: '#7c3aed', marginBottom: '4px' }}>
+              <div style={{ background: 'white', borderRadius: '12px', padding: '14px', marginBottom: '10px' }}>
+                <div style={{ fontSize: '11px', fontWeight: '600', color: '#7c3aed', marginBottom: '2px' }}>
                   {isIceDance ? 'RHYTHM DANCE' : 'SHORT PROGRAM'}
                 </div>
-                <div style={{ fontSize: '17px', fontWeight: '600', color: '#1e293b' }}>{athlete.programs.sp.title}</div>
-                <div style={{ fontSize: '14px', color: '#64748b', marginTop: '2px' }}>{athlete.programs.sp.music}</div>
+                <div style={{ fontSize: '15px', fontWeight: '600', color: '#1e293b' }}>{athlete.programs.sp.title}</div>
+                <div style={{ fontSize: '13px', color: '#64748b', marginTop: '2px' }}>{athlete.programs.sp.music}</div>
               </div>
-              <div style={{ background: 'linear-gradient(135deg, #dbeafe, #eff6ff)', borderRadius: '14px', padding: '18px' }}>
-                <div style={{ fontSize: '12px', fontWeight: '600', color: '#2563eb', marginBottom: '4px' }}>
+              <div style={{ background: 'white', borderRadius: '12px', padding: '14px' }}>
+                <div style={{ fontSize: '11px', fontWeight: '600', color: '#2563eb', marginBottom: '2px' }}>
                   {isIceDance ? 'FREE DANCE' : 'FREE SKATE'}
                 </div>
-                <div style={{ fontSize: '17px', fontWeight: '600', color: '#1e293b' }}>{athlete.programs.fs.title}</div>
-                <div style={{ fontSize: '14px', color: '#64748b', marginTop: '2px' }}>{athlete.programs.fs.music}</div>
+                <div style={{ fontSize: '15px', fontWeight: '600', color: '#1e293b' }}>{athlete.programs.fs.title}</div>
+                <div style={{ fontSize: '13px', color: '#64748b', marginTop: '2px' }}>{athlete.programs.fs.music}</div>
               </div>
             </div>
           )}
 
           {/* Bio */}
           {athlete.bio && (
-            <div style={{ background: 'white', borderRadius: '20px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-              <div style={{ fontSize: '14px', fontWeight: '600', color: '#64748b', letterSpacing: '0.5px', marginBottom: '10px' }}>
+            <div style={{ background: '#f8fafc', borderRadius: '16px', padding: '20px' }}>
+              <div style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', letterSpacing: '0.5px', marginBottom: '10px' }}>
                 BIOGRAPHY
               </div>
-              <p style={{ fontSize: '16px', color: '#475569', lineHeight: '1.7', margin: 0 }}>
+              <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.6', margin: 0 }}>
                 {athlete.bio}
               </p>
             </div>
@@ -1350,26 +1388,26 @@ const App = () => {
     );
   };
 
-  // Favorites Screen
+  // Favorites Screen - clean design
   const FavoritesScreen = () => {
     const favoriteAthletes = athletes.filter(a => favorites.includes(a.id));
 
     return (
-      <div style={{ paddingBottom: '160px' }}>
+      <div style={{ paddingBottom: '100px', background: 'white', minHeight: '100vh' }}>
         <Header />
-        <div style={{ padding: '24px' }}>
-          <h1 style={{ fontSize: '32px', fontWeight: '700', color: '#1e293b', margin: '0 0 24px' }}>
-            Saved Athletes ({favoriteAthletes.length})
+        <div style={{ padding: '24px 24px 0' }}>
+          <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', margin: '0 0 20px' }}>
+            Saved <span style={{ fontSize: '16px', fontWeight: '400', color: '#94a3b8' }}>({favoriteAthletes.length})</span>
           </h1>
 
           {favoriteAthletes.length === 0 ? (
-            <div style={{ background: 'white', borderRadius: '24px', padding: '70px 32px', textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-              <div style={{ fontSize: '64px', marginBottom: '24px' }}>⭐</div>
-              <div style={{ fontSize: '22px', fontWeight: '600', color: '#1e293b', marginBottom: '12px' }}>No saved athletes yet</div>
-              <div style={{ fontSize: '17px', color: '#64748b' }}>Tap the star on any athlete to add them here</div>
+            <div style={{ background: '#f8fafc', borderRadius: '20px', padding: '60px 32px', textAlign: 'center', marginTop: '40px' }}>
+              <div style={{ fontSize: '56px', marginBottom: '20px' }}>⭐</div>
+              <div style={{ fontSize: '20px', fontWeight: '600', color: '#1e293b', marginBottom: '8px' }}>No saved athletes yet</div>
+              <div style={{ fontSize: '15px', color: '#64748b' }}>Tap the star on any athlete to add them here</div>
             </div>
           ) : (
-            <div style={{ display: 'grid', gap: '14px' }}>
+            <div style={{ margin: '0 -24px' }}>
               {favoriteAthletes.map(athlete => (
                 <button
                   key={athlete.id}
@@ -1377,23 +1415,22 @@ const App = () => {
                   style={{
                     background: 'white',
                     border: 'none',
-                    borderRadius: '20px',
-                    padding: '20px',
+                    borderBottom: '1px solid #f1f5f9',
+                    padding: '16px 24px',
                     width: '100%',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '18px',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-                    minHeight: '90px'
+                    gap: '16px',
+                    minHeight: '76px'
                   }}
                 >
-                  <AthletePhoto athlete={athlete} size={72} />
+                  <AthletePhoto athlete={athlete} size={52} />
                   <div style={{ flex: 1, textAlign: 'left', minWidth: 0 }}>
-                    <div style={{ fontSize: '19px', fontWeight: '600', color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{athlete.name}</div>
-                    <div style={{ fontSize: '16px', color: '#64748b', marginTop: '4px' }}>{countries[athlete.country]?.flag} {countries[athlete.country]?.name}</div>
+                    <div style={{ fontSize: '16px', fontWeight: '600', color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{athlete.name}</div>
+                    <div style={{ fontSize: '14px', color: '#64748b', marginTop: '2px' }}>{countries[athlete.country]?.flag} {countries[athlete.country]?.name}</div>
                   </div>
-                  <span style={{ fontSize: '30px' }}>⭐</span>
+                  <span style={{ fontSize: '24px', color: '#fbbf24' }}>★</span>
                 </button>
               ))}
             </div>
